@@ -1,7 +1,7 @@
 # MLP-Mixer-Pytorch
 Implementation of the the paper "MLP-Mixer: An all-MLP Architecture for Vision"
 ```
-from ml_mixer import MLPMixer
+from mlp_mixer import MLPMixer
 model = MLPMixer(
         input_size = (256,256),
         patch_size = (16,16),
