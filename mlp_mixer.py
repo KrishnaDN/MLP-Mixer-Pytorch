@@ -65,4 +65,4 @@ if __name__=='__main__':
         )
     
     img = torch.randn(10, 3, 256, 256)
-    pred = model(img) # (1, 1000)
+    pred = model(img)
