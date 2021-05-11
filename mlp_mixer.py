@@ -17,12 +17,24 @@ class MixerBlock(nn.Module):
         self.pre_layer_norm = nn.LayerNorm(dim)
         self.post_layer_norm = nn.LayerNorm(dim)
         
-        self.token_mixer = nn.Sequential(nn.Linear(num_patches, num_patches),
+        self.token_mixer = nn.Sequential(
+                            nn.Linear(num_patches, dim),
                             nn.GELU(),
-                            nn.Dropout(0.1))
-        self.channel_mixer = nn.Sequential(nn.Linear(dim, dim),
+                            nn.Dropout(0.1),
+                            nn.Linear(dim, num_patches),
+                            nn.Dropout(0.1)
+                            )
+        
+        self.channel_mixer = nn.Sequential(
+                            nn.Linear(dim, dim),
                             nn.GELU(),
-                            nn.Dropout(0.1))
+                            nn.Dropout(0.1),
+                            nn.Linear(dim, dim),
+                            nn.Dropout(0.1)
+                            )
+                            
+        
+        
     def forward(self, x):
         pre_ln =self.pre_layer_norm(x)
         tm_out = self.token_mixer(pre_ln.transpose(1,2)).transpose(1,2)
