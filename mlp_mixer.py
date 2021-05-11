@@ -43,8 +43,7 @@ class MLPMixer(nn.Module):
                     Rearrange('b c (h p1) (w p2) -> b (h w) (p1 p2 c)', p1 = patch_size[0], p2 = patch_size[1]),
                     nn.Linear(patch_dim, dim))
          
-        self.network = nn.Sequential(*[nn.Sequential(MixerBlock(dim,num_patches)
-                     ) for _ in range(12)])
+        self.network = nn.Sequential(*[nn.Sequential(MixerBlock(dim,num_patches)) for _ in range(layers)])
         
         self.pool = nn.AdaptiveAvgPool1d(1)
         self.classifier = nn.Linear(dim,num_classes)
