@@ -40,7 +40,7 @@ class MixerBlock(nn.Module):
         tm_out = self.token_mixer(pre_ln.transpose(1,2)).transpose(1,2)
         tm_out = tm_out + x
         post_ln = self.post_layer_norm(tm_out)
-        cm_out = self.channel_mixer(post_ln)
+        cm_out = self.channel_mixer(post_ln)+tm_out
         return cm_out
     
     
